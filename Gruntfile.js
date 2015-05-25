@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         src: [
           'js/modals.js',
           'js/popovers.js',
-          'js/push.js',
+          //'js/push.js',
           'js/segmented-controllers.js',
           'js/sliders.js',
           'js/toggles.js'
@@ -251,7 +251,7 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('dist-css', ['sass', 'csscomb', 'cssmin']);
   grunt.registerTask('dist-js', ['concat', 'uglify']);
-  grunt.registerTask('dist', ['clean', 'dist-css', 'dist-js', 'copy', 'build-ratchicons-data']);
+  grunt.registerTask('dist', ['clean', 'dist-css', 'dist-js', 'copy']);
   grunt.registerTask('validate-html', ['jekyll', 'validation']);
   grunt.registerTask('build', ['dist']);
   grunt.registerTask('default', ['dist']);

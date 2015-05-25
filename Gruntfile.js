@@ -55,6 +55,7 @@ module.exports = function (grunt) {
           'js/common.js',
           'js/modals.js',
           'js/popovers.js',
+          'js/push.js',
           'js/segmented-controllers.js',
           'js/sliders.js',
           'js/toggles.js'
@@ -392,13 +393,15 @@ module.exports = function (grunt) {
   // Default task(s).
   grunt.registerTask('dist-css', ['sass', 'autoprefixer', 'usebanner', 'csscomb', 'cssmin']);
   grunt.registerTask('dist-js', ['concat', 'uglify']);
-  grunt.registerTask('dist', ['clean', 'dist-css', 'dist-js', 'copy']);
+  grunt.registerTask('dist', ['clean', 'dist-css', 'dist-js', 'copy', 'build-ratchicons-data']);
   grunt.registerTask('validate-html', ['jekyll:docs', 'htmllint']);
   grunt.registerTask('build', ['dist']);
   grunt.registerTask('default', ['dist']);
   grunt.registerTask('test', ['dist', 'csslint', 'jshint', 'jscs', 'validate-html']);
   grunt.registerTask('server', ['dist', 'jekyll:docs', 'connect', 'watch']);
   grunt.registerTask('prep-release', ['dist', 'jekyll:github', 'htmlmin', 'compress']);
+
+  grunt.registerTask('build-ratchicons-data', function () { generateRatchiconsData.call(this, grunt); });
 
   // Version numbering task.
   // grunt change-version-number --oldver=A.B.C --newver=X.Y.Z

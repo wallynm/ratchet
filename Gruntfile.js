@@ -1,12 +1,12 @@
 /*!
  * Ratchet's Gruntfile
  * http://goratchet.com
- * Copyright 2014 Connor Sears
+ * Copyright 2015 Connor Sears
  * Licensed under MIT (https://github.com/twbs/ratchet/blob/master/LICENSE)
  */
 
 /* jshint node: true */
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   'use strict';
 
   // Force use of Unix newlines
@@ -25,8 +25,11 @@ module.exports = function(grunt) {
     // Metadata.
     meta: {
       distPath:       'dist/',
-      docsPath:       'docs/dist/',
-      docsAssetsPath: 'docs/assets/'
+      docsAssetsPath: 'docs/assets/',
+      docsDistPath:   'docs/dist/',
+      docsPath:       'docs/',
+      jsPath:         'js/',
+      srcPath:        'sass/'
     },
 
     banner: '/*!\n' +
@@ -40,7 +43,7 @@ module.exports = function(grunt) {
             ' */\n',
 
     clean: {
-      dist: ['<%= meta.distPath %>', '<%= meta.docsPath %>']
+      dist: ['<%= meta.distPath %>', '<%= meta.docsDistPath %>']
     },
 
     concat: {
@@ -49,6 +52,7 @@ module.exports = function(grunt) {
           banner: '<%= banner %>'
         },
         src: [
+          'js/common.js',
           'js/modals.js',
           'js/popovers.js',
           //'js/push.js',
@@ -62,16 +66,39 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        banner: '<%= banner %>',
+        sourcemap: 'none',
         style: 'expanded',
         unixNewlines: true
       },
+      core: {
+        src: 'sass/ratchet.scss',
+        dest: '<%= meta.distPath %>css/<%= pkg.name %>.css'
+      },
+      android: {
+        src: 'sass/theme-android.scss',
+        dest: '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css'
+      },
+      ios: {
+        src: 'sass/theme-ios.scss',
+        dest: '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css'
+      },
+      docs: {
+        src: 'sass/docs.scss',
+        dest: '<%= meta.docsAssetsPath %>css/docs.css'
+      }
+    },
+
+    usebanner: {
       dist: {
+        options: {
+          position: 'top',
+          banner: '<%= banner %>'
+        },
         files: {
-          '<%= meta.distPath %>css/<%= pkg.name %>.css': 'sass/ratchet.scss',
-          '<%= meta.distPath %>css/<%= pkg.name %>-theme-ios.css': 'sass/theme-ios.scss',
-          '<%= meta.distPath %>css/<%= pkg.name %>-theme-android.css': 'sass/theme-android.scss',
-          '<%= meta.docsAssetsPath %>css/docs.css': 'sass/docs.scss'
+          src: [
+            '<%= meta.distPath %>css/*.css',
+            '<%= meta.docsAssetsPath %>css/docs.css'
+          ]
         }
       }
     },
@@ -80,16 +107,24 @@ module.exports = function(grunt) {
       options: {
         config: 'sass/.csscomb.json'
       },
-      dist: {
+      core: {
         files: {
-          '<%= meta.distPath %>/css/<%= pkg.name %>.css': '<%= meta.distPath %>/css/<%= pkg.name %>.css',
-          '<%= meta.distPath %>/css/<%= pkg.name %>-theme-android.css': '<%= meta.distPath %>/css/<%= pkg.name %>-theme-android.css',
-          '<%= meta.distPath %>/css/<%= pkg.name %>-theme-ios.css': '<%= meta.distPath %>/css/<%= pkg.name %>-theme-ios.css'
+          '<%= sass.core.dest %>': '<%= sass.core.dest %>'
+        }
+      },
+      android: {
+        files: {
+          '<%= sass.android.dest %>': '<%= sass.android.dest %>'
+        }
+      },
+      ios: {
+        files: {
+          '<%= sass.ios.dest %>': '<%= sass.ios.dest %>'
         }
       },
       docs: {
         files: {
-          '<%= meta.docsAssetsPath %>/css/docs.css': '<%= meta.docsAssetsPath %>/css/docs.css'
+          '<%= sass.docs.dest %>': '<%= sass.docs.dest %>'
         }
       }
     },
@@ -98,7 +133,7 @@ module.exports = function(grunt) {
       fonts: {
         expand: true,
         src: 'fonts/*',
-        dest: '<%= meta.distPath %>/'
+        dest: '<%= meta.distPath %>'
       },
       docs: {
         expand: true,
@@ -106,14 +141,52 @@ module.exports = function(grunt) {
         src: [
           '**/*'
         ],
-        dest: '<%= meta.docsPath %>'
+        dest: '<%= meta.docsDistPath %>'
+      }
+    },
+
+    autoprefixer: {
+      options: {
+        browsers: [
+          'Android 2.3',
+          'Android >= 4',
+          'Chrome >= 20',
+          'Firefox >= 24', // Firefox 24 is the latest ESR
+          'Explorer >= 9',
+          'iOS >= 6',
+          'Opera >= 12',
+          'Safari >= 6'
+        ]
+      },
+      core: {
+        src: '<%= sass.core.dest %>'
+      },
+      android: {
+        options: {
+          browsers: [
+            'Android 2.3',
+            'Android >= 4',
+            'Chrome >= 20',
+            'Firefox >= 24', // Firefox 24 is the latest ESR
+            'Opera >= 12'
+          ]
+        },
+        src: '<%= sass.android.dest %>'
+      },
+      ios: {
+        options: {
+          browsers: ['iOS >= 6']
+        },
+        src: '<%= sass.ios.dest %>'
+      },
+      docs: {
+        src: '<%= sass.docs.dest %>'
       }
     },
 
     cssmin: {
       options: {
-        banner: '', // set to empty; see bellow
-        keepSpecialComments: '*' // set to '*' because we already add the banner in sass
+        keepSpecialComments: '*' // keep all important comments
       },
       ratchet: {
         src: '<%= meta.distPath %>css/<%= pkg.name %>.css',
@@ -137,7 +210,9 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         banner: '<%= banner %>',
-        compress: true,
+        compress: {
+          warnings: false
+        },
         mangle: true,
         preserveComments: false
       },
@@ -155,16 +230,54 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      scripts: {
-        files: [
-          '<%= meta.srcPath %>/**/*.scss'
-        ],
-        tasks: ['sass']
+      options: {
+        hostname: 'localhost',
+        livereload: true,
+        port: 8000
+      },
+      js: {
+        files: '<%= meta.jsPath %>**/*.js',
+        tasks: ['dist-js', 'copy']
+      },
+      css: {
+        files: '<%= meta.srcPath %>**/*.scss',
+        tasks: ['dist-css', 'copy']
+      },
+      html: {
+        files: '<%= meta.docsPath %>**',
+        tasks: ['jekyll']
       }
     },
 
     jekyll: {
-      docs: {}
+      options: {
+        config: '_config.yml'
+      },
+      docs: {},
+      github: {
+        options: {
+          raw: 'github: true'
+        }
+      }
+    },
+
+    htmlmin: {
+      dist: {
+        options: {
+          collapseWhitespace: true,
+          conservativeCollapse: true,
+          minifyCSS: true,
+          minifyJS: true,
+          removeAttributeQuotes: true,
+          removeComments: true
+        },
+        expand: true,
+        cwd: '_site',
+        dest: '_site',
+        src: [
+          '**/*.html'
+        ]
+      }
     },
 
     jshint: {
@@ -214,22 +327,14 @@ module.exports = function(grunt) {
       }
     },
 
-    validation: {
+    htmllint: {
       options: {
-        charset: 'utf-8',
-        doctype: 'HTML5',
-        failHard: true,
-        reset: true,
-        relaxerror: [
-          'Bad value apple-mobile-web-app-title for attribute name on element meta: Keyword apple-mobile-web-app-title is not registered.',
-          'Bad value apple-mobile-web-app-status-bar-style for attribute name on element meta: Keyword apple-mobile-web-app-status-bar-style is not registered.',
-          'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
-          'Attribute ontouchstart not allowed on element body at this point.'
+        ignore: [
+          'Attribute "ontouchstart" not allowed on element "body" at this point.',
+          'Consider using the "h1" element as a top-level heading only (all "h1" elements are treated as top-level headings by many screen readers and other tools).'
         ]
       },
-      files: {
-        src: '_site/**/*.html'
-      }
+      src: '_site/**/*.html'
     },
 
     sed: {
@@ -239,7 +344,44 @@ module.exports = function(grunt) {
           return old ? RegExp.quote(old) : old;
         })(),
         replacement: grunt.option('newver'),
+        exclude: [
+          'dist/fonts',
+          'docs/assets',
+          'fonts',
+          'node_modules'
+        ],
         recursive: true
+      }
+    },
+
+    connect: {
+      site: {
+        options: {
+          base: '_site/',
+          hostname: 'localhost',
+          livereload: true,
+          open: true,
+          port: 8000
+        }
+      }
+    },
+
+    compress: {
+      main: {
+        options: {
+          archive: 'ratchet-<%= pkg.version %>-dist.zip',
+          mode: 'zip',
+          level: 9,
+          pretty: true
+        },
+        files: [
+          {
+            expand: true,
+            cwd: 'dist/',
+            src: ['**'],
+            dest: 'ratchet-<%= pkg.version %>-dist'
+          }
+        ]
       }
     }
   });
@@ -249,15 +391,17 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   // Default task(s).
-  grunt.registerTask('dist-css', ['sass', 'csscomb', 'cssmin']);
+  grunt.registerTask('dist-css', ['sass', 'autoprefixer', 'usebanner', 'csscomb', 'cssmin']);
   grunt.registerTask('dist-js', ['concat', 'uglify']);
   grunt.registerTask('dist', ['clean', 'dist-css', 'dist-js', 'copy']);
-  grunt.registerTask('validate-html', ['jekyll', 'validation']);
+  grunt.registerTask('validate-html', ['jekyll:docs', 'htmllint']);
   grunt.registerTask('build', ['dist']);
   grunt.registerTask('default', ['dist']);
   grunt.registerTask('test', ['dist', 'csslint', 'jshint', 'jscs', 'validate-html']);
+  grunt.registerTask('server', ['dist', 'jekyll:docs', 'connect', 'watch']);
+  grunt.registerTask('prep-release', ['dist', 'jekyll:github', 'htmlmin', 'compress']);
 
-  grunt.registerTask('build-ratchicons-data', generateRatchiconsData);
+  grunt.registerTask('build-ratchicons-data', function () { generateRatchiconsData.call(this, grunt); });
 
   // Version numbering task.
   // grunt change-version-number --oldver=A.B.C --newver=X.Y.Z

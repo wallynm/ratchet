@@ -40,7 +40,7 @@
 
 
   var getOverlay = function() {
-    return document.querySelectorAll('.ni-overlay');
+    return document.querySelectorAll('.ni-overlay')[0];
   };
 
 
@@ -52,6 +52,7 @@
       if (modal && modal.classList.contains('modal')) {
         modal.classList.toggle('active');
         overlay.classList.toggle('ni-active');
+        overlay.classList.toggle('ni-full');
       }
       event.preventDefault(); // prevents rewriting url (apps can still use hash values in url)
     }

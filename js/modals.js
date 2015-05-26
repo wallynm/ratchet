@@ -29,11 +29,20 @@
     }
   };
 
+
+  var getOverlay = function() {
+    return document.querySelectorAll('.ni-overlay');
+  };
+
+
   window.addEventListener('touchend', function (event) {
     var modal = getModal(event);
+    var overlay = getOverlay();
+
     if (modal) {
       if (modal && modal.classList.contains('modal')) {
         modal.classList.toggle('active');
+        overlay.classList.toggle('ni-active');
       }
       event.preventDefault(); // prevents rewriting url (apps can still use hash values in url)
     }

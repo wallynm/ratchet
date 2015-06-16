@@ -20,9 +20,8 @@
          }
        } else {
          $('#menu').prop("checked", true);
+         toggleSidebarIcon();
        }
-       
-       toggleSidebarIcon();
      }
    });
 

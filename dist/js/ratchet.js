@@ -346,7 +346,6 @@
      var $el = $(e.target);
      var $el = $(e.target);
 
-
      // valida se o swipe esta sendo executado em um slider
      if ($el.parents('.ni-slider').length === 0) {
        if (e.type === 'swipeleft') {
@@ -358,18 +357,24 @@
        }
      }
 
-
-     //$('.ni-menu-checkbox:checked').prop( "checked", false );
+     toggleSidebarIcon();
    });
 
-   $('.ni-overlay').on('tap swiperight', function() {
+
+   $('#ni-sidebar').on('tap', function() {
+     toggleSidebarIcon();
+   });
+
+   $('.ni-overlay').on('tap', function() {
      $('.ni-menu-checkbox:checked').prop( "checked", false );
+     toggleSidebarIcon();
    });
 
    $('.ni-menu').on('tap', function(e) {
      e.stopPropagation();
      var indx = $(e.target).is('label') ? -2 : -1;
      if( !$('.ni-menu-checkbox:checked + .ni-menu').eq(indx).is(this)){
+       toggleSidebarIcon();
        $(this).find('.ni-menu-checkbox:checked').prop( "checked", false );
      }
    });
@@ -383,4 +388,11 @@
        return false;
      }
    });
+
+
+   var toggleSidebarIcon = function() {
+     var icon = ($('.ni-menu-checkbox:checked').length === 0) ? 'icon-align-justify' : 'icon-remove';
+     $('#ni-sidebar').removeClass('icon-align-justify icon-remove');
+     $('#ni-sidebar').addClass(icon);
+   }
  }());

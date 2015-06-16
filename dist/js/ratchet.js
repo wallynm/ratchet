@@ -349,13 +349,16 @@
      // valida se o swipe esta sendo executado em um slider
      if ($el.parents('.ni-slider').length === 0) {
        if (e.type === 'swipeleft') {
-         if ($el.closest('.ni-menu').length !== 0) {
-           $el.closest('.ni-menu').prev('.ni-menu-checkbox:checked').prop( "checked", false );
+         var $menu = $el.closest('.ni-menu');
+
+         if ($menu.length !== 0) {
+           $menu.prev('.ni-menu-checkbox:checked').prop( "checked", false );
+           $menu.find('.ni-menu-checkbox:checked').prop( "checked", false );
          }
        } else {
          $('#menu').prop("checked", true);
-         toggleSidebarIcon();
        }
+       toggleSidebarIcon();
      }
    });
 
@@ -373,8 +376,8 @@
      e.stopPropagation();
      var indx = $(e.target).is('label') ? -2 : -1;
      if( !$('.ni-menu-checkbox:checked + .ni-menu').eq(indx).is(this)){
-       toggleSidebarIcon();
        $(this).find('.ni-menu-checkbox:checked').prop( "checked", false );
+       toggleSidebarIcon();
      }
    });
 
@@ -384,12 +387,13 @@
 
      if(!clickedMenu.is(currentMenu)){
        clickedMenu.trigger('touchstart');
+       toggleSidebarIcon();
        return false;
      }
    });
 
    var toggleSidebarIcon = function() {
      var icon = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
-     $('#ni-sidebar').toggleClass('ni-active');
+     $('#ni-sidebar').toggleClass('ni-active', icon);
    }
  }());

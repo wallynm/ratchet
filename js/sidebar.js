@@ -55,10 +55,8 @@
      }
    });
 
-
    var toggleSidebarIcon = function() {
-     var icon = ($('.ni-menu-checkbox:checked').length === 0) ? 'icon-align-justify' : 'icon-remove';
-     $('#ni-sidebar').removeClass('icon-align-justify icon-remove');
-     $('#ni-sidebar').addClass(icon);
+     var icon = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
+     $('#ni-sidebar').toggleClass('ni-active');
    }
  }());

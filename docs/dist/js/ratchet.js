@@ -344,14 +344,20 @@
 
    $('.ni-container').on('swipeleft swiperight', function(e) {
      var $el = $(e.target);
+     var $el = $(e.target);
+     console.warn($el.closest('.ni-menu').length !== 0)
+     console.warn(e.type === 'swipeleft')
+
 
      // valida se o swipe esta sendo executado em um slider
-     if( $el.parents('.ni-slider').length === 0){
-
-       var stateMenu = !$('#menu').prop( "checked");
-       console.warn(stateMenu);
-       $('#menu').prop("checked", stateMenu);
-       console.warn(e);
+     if ($el.parents('.ni-slider').length === 0) {
+       if (e.type === 'swipeleft') {
+         if ($el.closest('.ni-menu').length !== 0) {
+           $el.closest('.ni-menu').prev('.ni-menu-checkbox:checked').prop( "checked", false );
+         }
+       } else {
+         $('#menu').prop("checked", true);
+       }
      }
 
 
@@ -370,9 +376,10 @@
      }
    });
 
-   $('.ni-menu a').on('tap', function() {
+   $('.ni-menu a').on('click', function(e) {
      var clickedMenu = $(this).parents('.ni-menu');
      var currentMenu = $('.ni-menu-checkbox:checked + .ni-menu:last');
+
      if(!clickedMenu.is(currentMenu)){
        clickedMenu.trigger('touchstart');
        return false;

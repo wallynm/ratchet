@@ -352,32 +352,29 @@
          var $menu = $el.closest('.ni-menu');
 
          if ($menu.length !== 0) {
-           $menu.prev('.ni-menu-checkbox:checked').prop( "checked", false );
-           $menu.find('.ni-menu-checkbox:checked').prop( "checked", false );
+           $menu.prev('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");
+           $menu.find('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");
          }
        } else {
          $('#menu').prop("checked", true);
        }
-       toggleSidebarIcon();
      }
    });
 
-
-   $('#ni-sidebar').on('tap', function() {
+   $('.ni-menu-checkbox').change(function(){
+     console.warn('treta')
      toggleSidebarIcon();
-   });
+   })
 
    $('.ni-overlay').on('tap', function() {
-     $('.ni-menu-checkbox:checked').prop( "checked", false );
-     toggleSidebarIcon();
+     $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
    });
 
    $('.ni-menu').on('tap', function(e) {
      e.stopPropagation();
      var indx = $(e.target).is('label') ? -2 : -1;
      if( !$('.ni-menu-checkbox:checked + .ni-menu').eq(indx).is(this)){
-       $(this).find('.ni-menu-checkbox:checked').prop( "checked", false );
-       toggleSidebarIcon();
+       $(this).find('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
      }
    });
 
@@ -387,7 +384,6 @@
 
      if(!clickedMenu.is(currentMenu)){
        clickedMenu.trigger('touchstart');
-       toggleSidebarIcon();
        return false;
      }
    });

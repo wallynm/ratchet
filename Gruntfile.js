@@ -57,8 +57,8 @@ module.exports = function (grunt) {
           'js/popovers.js',
           //'js/push.js',
           'js/segmented-controllers.js',
-          'js/sliders.js',
-          'js/toggles.js'
+          'js/toggles.js',
+          'js/sidebar.js'
         ],
         dest: '<%= meta.distPath %>js/<%= pkg.name %>.js'
       }
@@ -330,7 +330,7 @@ module.exports = function (grunt) {
     htmllint: {
       options: {
         ignore: [
-          'Attribute "ontouchstart" not allowed on element "body" at this point.',
+          'Attribute "onclick" not allowed on element "body" at this point.',
           'Consider using the "h1" element as a top-level heading only (all "h1" elements are treated as top-level headings by many screen readers and other tools).'
         ]
       },

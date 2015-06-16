@@ -345,8 +345,6 @@
    $('.ni-container').on('swipeleft swiperight', function(e) {
      var $el = $(e.target);
      var $el = $(e.target);
-     console.warn($el.closest('.ni-menu').length !== 0)
-     console.warn(e.type === 'swipeleft')
 
 
      // valida se o swipe esta sendo executado em um slider

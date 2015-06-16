@@ -362,7 +362,7 @@
      //$('.ni-menu-checkbox:checked').prop( "checked", false );
    });
 
-   $('.ni-overlay').on('tap', function() {
+   $('.ni-overlay').on('tap swiperight', function() {
      $('.ni-menu-checkbox:checked').prop( "checked", false );
    });
 

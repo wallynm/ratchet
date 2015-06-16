@@ -35,7 +35,7 @@
   };
 
 
-  window.addEventListener('click', function (event) {
+  window.addEventListener('tap', function (event) {
     var modal = getModal(event);
     var overlay = getOverlay();
 

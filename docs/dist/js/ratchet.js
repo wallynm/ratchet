@@ -44,7 +44,7 @@
   };
 
 
-  window.addEventListener('touchstart', function (event) {
+  window.addEventListener('click', function (event) {
     var modal = getModal(event);
     var overlay = getOverlay();
 

@@ -9,7 +9,6 @@
    'use strict';
 
    $('.ni-container').on('swipeleft swiperight', function(e) {
-     alert('aff')
      var $el = $(e.target);
 
      // valida se o swipe esta sendo executado em um slider

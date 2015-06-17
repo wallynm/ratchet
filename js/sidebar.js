@@ -2,7 +2,7 @@
  * Ratchet: sidebar.js
  * http://goratchet.com/
  * ========================================================================
- * Licensed under MIT (https://github.com/twbs/ratchet/blob/master/LICENSE)
+ * @Author: Wallysson Nunes
  * ======================================================================== */
 
  !(function () {

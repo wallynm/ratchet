@@ -391,7 +391,7 @@
      }
    });
 
-   $('.ni-overlay').on('tap', function() {
+   $('.ni-overlay').on('touchstart', function() {
      $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
    });
 
@@ -411,10 +411,6 @@
        clickedMenu.trigger('touchstart');
        return false;
      }
-   });
-
-   $('#ni-sidebar').on('click', function(e) {
-     $(this).find('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
    });
 
    $('.ni-menu-checkbox').change(function(){

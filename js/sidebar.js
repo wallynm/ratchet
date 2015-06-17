@@ -8,6 +8,11 @@
  !(function () {
    'use strict';
 
+   var closeMenu = function($target) {
+     var $target = (typeof target !== 'undefined') ? target : $('.ni-menu-checkbox:checked')
+     $target.prop("checked", false).trigger("change");
+   };
+
    $('.ni-container').on('swipeleft swiperight', function(e) {
      var $el = $(e.target);
      var $el = $(e.target);
@@ -28,11 +33,7 @@
    });
 
    $('.ni-overlay').on('touchstart', function() {
-     $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
-   });
-
-   $('#ni-sidebar').on('tap', function() {
-     $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
+     closeMenu();
    });
 
    $('.ni-menu').on('tap', function(e) {
@@ -53,7 +54,11 @@
      }
    });
 
-   $('.ni-menu-checkbox').change(function(){
+   $('.ni-menu-checkbox').change(function(e){
+     if(e.currentTarget.id === 'menu' && $('#ni-sidebar').hasClass('ni-active')){
+       closeMenu();
+     }
+
      var icon = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
      $('#ni-sidebar').toggleClass('ni-active', icon);
    });

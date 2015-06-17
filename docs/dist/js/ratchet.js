@@ -391,11 +391,6 @@
      }
    });
 
-   $('.ni-menu-checkbox').change(function(){
-     console.warn('treta')
-     toggleSidebarIcon();
-   })
-
    $('.ni-overlay').on('tap', function() {
      $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
    });
@@ -418,8 +413,12 @@
      }
    });
 
-   var toggleSidebarIcon = function() {
+   $('#ni-sidebar').on('click', function(e) {
+     $(this).find('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
+   });
+
+   $('.ni-menu-checkbox').change(function(){
      var icon = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
      $('#ni-sidebar').toggleClass('ni-active', icon);
-   }
+   });
  }());

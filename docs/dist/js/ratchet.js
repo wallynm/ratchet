@@ -395,6 +395,10 @@
      $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
    });
 
+   $('#ni-sidebar').on('tap', function() {
+     $('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
+   });
+
    $('.ni-menu').on('tap', function(e) {
      e.stopPropagation();
      var indx = $(e.target).is('label') ? -2 : -1;

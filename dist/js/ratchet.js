@@ -452,16 +452,17 @@
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
   };
 
-  $('.content').scroll(function() {
-    var scrolled = isScrolledIntoView('.ni-product-buy');
+  if ($('.ni-product-buy').length !== 0){
+    $('.content').scroll(function() {
+      var scrolled = isScrolledIntoView('.ni-product-buy');
 
-    if (scrolled && $('.ni-toolbar').hasClass('ni-active')) {
-      $('.ni-toolbar').toggleClass('ni-active');
-    }
+      if (scrolled && $('.ni-toolbar').hasClass('ni-active')) {
+        $('.ni-toolbar').toggleClass('ni-active');
+      }
 
-    if (!scrolled && !$('.ni-toolbar').hasClass('ni-active')) {
-      $('.ni-toolbar').toggleClass('ni-active');
-    }
-
-  });
+      if (!scrolled && !$('.ni-toolbar').hasClass('ni-active')) {
+        $('.ni-toolbar').toggleClass('ni-active');
+      }
+    });
+  }
 }());

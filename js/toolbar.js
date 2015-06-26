@@ -12,16 +12,10 @@
     var $elem = $(elem);
     var $window = $(window);
     var barHeight = $('.ni-toolbar').height();
-
-    var docViewTop = $window.scrollTop();
-    var docViewBottom = docViewTop + $window.height();
-
+    var docHeight = $window.height();
     var elemTop = $elem.offset().top;
     var elemBottom = elemTop + $elem.height() - barHeight;
-
-
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    return ((elemBottom <= docHeight) && (elemTop >= 0));
   };
 
   if ($('.ni-product-buy').length !== 0){

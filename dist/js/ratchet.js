@@ -386,6 +386,7 @@
 
  !(function () {
    'use strict';
+   var $overlay = $('.ni-overlay');
 
    var closeMenu = function($target) {
      var $target = (typeof target !== 'undefined') ? target : $('.ni-menu-checkbox:checked')
@@ -393,7 +394,6 @@
    };
 
    $('.ni-container').on('swipeleft swiperight', function(e) {
-     var $el = $(e.target);
      var $el = $(e.target);
 
      // valida se o swipe esta sendo executado em um slider
@@ -411,7 +411,7 @@
      }
    });
 
-   $('.ni-overlay').on('touchstart', function() {
+   $overlay.on('touchstart', function() {
      closeMenu();
    });
 
@@ -438,8 +438,9 @@
        closeMenu();
      }
 
-     var icon = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
-     $('#ni-sidebar').toggleClass('ni-active', icon);
+     var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
+     $overlay.toggleClass('ni-active', status);
+     $('#ni-sidebar').toggleClass('ni-active', status);
    });
  }());
 
@@ -460,7 +461,6 @@
     var docHeight = $window.height();
     var elemTop = $elem.offset().top;
     var elemBottom = elemTop + $elem.height() - barHeight;
-
     return ((elemBottom <= docHeight) && (elemTop >= 0));
   };
 

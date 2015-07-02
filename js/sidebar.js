@@ -59,7 +59,9 @@
        closeMenu();
      }
      console.warn($(e.currentTarget).next('.ni-menu').find('ul'));
-     $(e.currentTarget).next('.ni-menu').toggleClass('ni-active');
+
+     $('.ni-menu').removeClass('ni-active');
+     $(e.currentTarget).next('.ni-menu').addClass('ni-active');
 
 
      var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;

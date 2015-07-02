@@ -10,7 +10,7 @@
    var $overlay = $('.ni-overlay');
 
    var closeMenu = function($target) {
-     var $target = (typeof target !== 'undefined') ? target : $('.ni-menu-checkbox:checked')
+     var $target = (typeof target !== 'undefined') ? target : $('.ni-menu-checkbox:checked');
      $target.prop("checked", false).trigger("change");
    };
 
@@ -58,8 +58,9 @@
      if(e.currentTarget.id === 'menu' && $('#ni-sidebar').hasClass('ni-active')){
        closeMenu();
      }
-     console.warn($(e.currentTarget))
-     $(e.currentTarget).next('ul').css("overflow-y", "auto").css("-webkit-overflow-scrolling", "touch");
+     console.warn($(e.currentTarget).next('.ni-menu').find('ul'));
+     $(e.currentTarget).next('.ni-menu').toggleClass('ni-active');
+
 
      var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
      $overlay.toggleClass('ni-active', status);

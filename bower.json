@@ -21,5 +21,8 @@
     "CNAME",
     "CONTRIBUTING.md",
     "docs"
-  ]
+  ],
+  "dependencies": {
+    "inobounce": "~0.1.1"
+  }
 }

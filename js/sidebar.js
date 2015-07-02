@@ -22,6 +22,8 @@
        if (e.type === 'swipeleft') {
          var $menu = $el.closest('.ni-menu');
 
+         console.warn('$menu', $menu);
+
          if ($menu.length !== 0) {
            $menu.prev('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");
            $menu.find('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");
@@ -58,11 +60,9 @@
      if(e.currentTarget.id === 'menu' && $('#ni-sidebar').hasClass('ni-active')){
        closeMenu();
      }
-     console.warn($(e.currentTarget).next('.ni-menu').find('ul'));
 
      $('.ni-menu').removeClass('ni-active');
-     $(e.currentTarget).next('.ni-menu').addClass('ni-active');
-
+     $('.ni-menu-checkbox:checked + .ni-menu ').last().addClass('ni-active');
 
      var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
      $overlay.toggleClass('ni-active', status);

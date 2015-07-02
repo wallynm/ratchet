@@ -21,9 +21,6 @@
      if ($el.parents('.ni-slider').length === 0) {
        if (e.type === 'swipeleft') {
          var $menu = $el.closest('.ni-menu');
-
-         console.warn('$menu', $menu);
-
          if ($menu.length !== 0) {
            $menu.prev('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");
            $menu.find('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");

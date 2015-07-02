@@ -26,7 +26,7 @@
       // Ativa o accordion e abre o conteudo
       $section.toggleClass('ni-active');
       $content.slideToggle(aniTiming, function() {
-        
+
         // Para conseguir armazenar o offsetSection eu preciso fazer alguns calculos uma
         // vez que o parent dele e absolute fazendo com que nao funcione como esperado
         var offsetSection = $('.ni-active.ni-accordion-section').height() + ($('.ni-active.ni-accordion-section').offset().top - $(window).height());

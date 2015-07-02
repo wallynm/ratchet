@@ -27,7 +27,7 @@
            $menu.find('.ni-menu-checkbox:checked').prop( "checked", false ).trigger("change");
          }
        } else {
-         $('#menu').prop("checked", true);
+         $('#menu').prop("checked", true).trigger("change");
        }
      }
    });
@@ -58,6 +58,8 @@
      if(e.currentTarget.id === 'menu' && $('#ni-sidebar').hasClass('ni-active')){
        closeMenu();
      }
+     console.warn($(e.currentTarget))
+     $(e.currentTarget).next('ul').css("overflow-y", "auto").css("-webkit-overflow-scrolling", "touch");
 
      var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
      $overlay.toggleClass('ni-active', status);

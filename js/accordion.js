@@ -8,7 +8,7 @@
   'use strict';
 
   //Abre o accordion
-  $('.ni-accordion-section-header').on('tap', function(e) {
+  $('.ni-accordion-section-header').on('click', function(e) {
     // Pega o ID setado na aba para abrir o content corret
     var $el      = $(this);
     var $section = $el.parents('.ni-accordion-section');

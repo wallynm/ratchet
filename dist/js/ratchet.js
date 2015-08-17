@@ -44,7 +44,7 @@
   };
 
 
-  window.addEventListener('tap', function (event) {
+  window.addEventListener('click', function (event) {
     var modal = getModal(event);
     var overlay = getOverlay();
 
@@ -157,7 +157,7 @@
   'use strict';
 
   //Abre o accordion
-  $('.ni-accordion-section-header').on('tap', function(e) {
+  $('.ni-accordion-section-header').on('click', function(e) {
     // Pega o ID setado na aba para abrir o content corret
     var $el      = $(this);
     var $section = $el.parents('.ni-accordion-section');
@@ -414,7 +414,7 @@
      closeMenu();
    });
 
-   $('.ni-menu').on('tap', function(e) {
+   $('.ni-menu').on('click', function(e) {
      e.stopPropagation();
      var indx = $(e.target).is('label') ? -2 : -1;
      if( !$('.ni-menu-checkbox:checked + .ni-menu').eq(indx).is(this)){

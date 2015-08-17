@@ -59,7 +59,9 @@ module.exports = function (grunt) {
           'js/segmented-controllers.js',
           'js/toggles.js',
           'js/sidebar.js',
-          'js/toolbar.js'
+          'js/toolbar.js',
+          'js/counter.js',
+          'js/tooltip.js'
         ],
         dest: '<%= meta.distPath %>js/<%= pkg.name %>.js'
       }

@@ -35,7 +35,7 @@
      closeMenu();
    });
 
-   $('.ni-menu').on('tap', function(e) {
+   $('.ni-menu').on('click', function(e) {
      e.stopPropagation();
      var indx = $(e.target).is('label') ? -2 : -1;
      if( !$('.ni-menu-checkbox:checked + .ni-menu').eq(indx).is(this)){

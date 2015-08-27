@@ -29,7 +29,6 @@
     }
   };
 
-
   var getOverlay = function() {
     return document.querySelectorAll('.ni-overlay')[0];
   };

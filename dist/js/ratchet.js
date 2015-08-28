@@ -535,6 +535,8 @@
       minLimitMsg: "O limite minino foi atingido",
     };
 
+    var settings = $.extend({}, defaults, options);
+
     // template do contador, com variação da classe que distingue os tipos de exibição.
     var template = '<div><div class="ni-more"><button>+</button></div><div class="ni-value" data-value="' + settings.min + '">' + settings.min + '</div><div class="ni-less"><button>-</button></div></div>';
 
@@ -563,8 +565,6 @@
       $el.data('value', num);
       $el.find('.ni-value').text(num);
     }
-
-    var settings = $.extend({}, defaults, options);
 
     return this.each(function() {
       var self = this;

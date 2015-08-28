@@ -37,16 +37,16 @@
 
     var updateValue = function(num, $el) {
       // Fechando o Tooltip
-      $el.tooltip('destroy');
+      $el.find('>div').tooltip('destroy');
 
       // Valida se o valor do contador esta acima do permitido
       if(num > settings.max) {
-        $el.tooltip({
+        $el.find('>div').tooltip({
           title: settings.maxLimitMsg
         }).tooltip('show');
         return;
       } else if(num < settings.min) {
-        $el.tooltip({
+        $el.find('>div').tooltip({
           title: settings.minLimitMsg
         }).tooltip('show');
         return;

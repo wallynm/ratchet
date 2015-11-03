@@ -20,6 +20,7 @@
       min: 1,
       max: 10,
       value: 0,
+      valueInputName: 'counter-value',
       customPlus: undefined,
       beforeCustomPlus: undefined,
       customMinus: undefined,
@@ -31,43 +32,47 @@
     var settings = $.extend({}, defaults, options);
 
     // template do contador, com variação da classe que distingue os tipos de exibição.
-    var template = '<div><div class="ni-more"><button>+</button></div><div class="ni-value" data-value="' + settings.min + '">' + settings.min + '</div><div class="ni-less"><button>-</button></div></div>';
+    var template = '<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.valueInputName + '" class="ni-value" disabled="disabled" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>';
 
     var getBaseClass = function(type) {
       return(type === 'inline') ? 'ni-counter' : 'ni-counter2';
-    }
-
-    var updateValue = function(num, $el) {
-      // Fechando o Tooltip
-      $el.find('>div').tooltip('destroy');
-
-      // Valida se o valor do contador esta acima do permitido
-      if(num > settings.max) {
-        $el.find('>div').tooltip({
-          title: settings.maxLimitMsg
-        }).tooltip('show');
-        return;
-      } else if(num < settings.min) {
-        $el.find('>div').tooltip({
-          title: settings.minLimitMsg
-        }).tooltip('show');
-        return;
-      }
-
-      // Seta o valor no atributo
-      $el.data('value', num);
-      $el.find('.ni-value').text(num);
     }
 
     return this.each(function() {
       var self = this;
       var $el = $(this);
 
+      $el.updateValue = function(val) {
+        // Fechando o Tooltip
+        this.find('>div').tooltip('destroy');
+        var currentVal = parseInt(this.find('.ni-value').val());
+        var updateVal = currentVal + val;
+
+        // Valida se o valor do contador esta acima do permitido
+        if(updateVal > settings.max) {
+          this.find('>div').tooltip({
+            title: settings.maxLimitMsg
+          }).tooltip('show');
+          return;
+        } else if(updateVal <= settings.min) {
+          this.find('>div').tooltip({
+            title: settings.minLimitMsg
+          }).tooltip('show');
+          return;
+        }
+
+        // Seta o valor no atributo
+        this.find('.ni-value').val(updateVal);
+      }
+
       if($el.data('type'))
         settings.type = $el.data('type');
 
       if($el.data('value'))
         settings.value = $el.data('value');
+
+      if($el.data('value-name'))
+        settings.valueInputName = $el.data('value-name');
 
       if($el.data('min')) {
         settings.min = $el.data('min');
@@ -81,17 +86,11 @@
         settings.max = $el.data('max');
       }
 
-      if(typeof $el.data('value') === 'undefined') {
-        $el.data('value', settings.value);
-      }
-
       // Renderiza o template no elemento selecionado.
       var $tpl = $(template).addClass(getBaseClass(settings.type));
 
-      // Aplica o template
-      $el.html($tpl);
-
-      updateValue(settings.value, $el);
+      // Aplica o template e atualiza seu value especifico
+      $el.html($tpl).updateValue(settings.value);
 
       /* Evento de clique para incrementar o valor. */
       $el.find('.ni-more').on('click', function() {
@@ -99,7 +98,7 @@
         if(typeof settings.beforeCustomPlus === 'function')
           beforeCustomPlus();
 
-        updateValue($el.data('value') + 1, $el);
+        $el.updateValue(+1, $el);
 
         // Executa a função customPlus caso tenha sido configurada
         if(typeof settings.customPlus === 'function')
@@ -108,12 +107,11 @@
 
       /* Evento de click para decrementar o valor */
       $(this).find('.ni-less').on('click', function() {
-
         // Executa a função beforeCustomMinus caso tenha sido configurada
         if(typeof settings.beforeCustomMinus === 'function')
           beforeCustomMinus();
 
-        updateValue($el.data('value') - 1, $el);
+        $el.updateValue(-1);
 
         // Executa a função customMinus caso tenha sido configurada
         if(typeof settings.customMinus === 'function')

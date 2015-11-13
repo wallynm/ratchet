@@ -603,26 +603,26 @@
       $el.find('.ni-more').on('click', function() {
         // Executa a função beforeCustomPlus caso tenha sido configurada
         if(typeof settings.beforeCustomPlus === 'function')
-          self.beforeCustomPlus();
+          settings.beforeCustomPlus();
 
         $el.updateValue(+1);
 
         // Executa a função customPlus caso tenha sido configurada
         if(typeof settings.customPlus === 'function')
-          self.customPlus();
+          settings.customPlus();
       });
 
       /* Evento de click para decrementar o valor */
       $(this).find('.ni-less').on('click', function() {
         // Executa a função beforeCustomMinus caso tenha sido configurada
         if(typeof settings.beforeCustomMinus === 'function')
-          self.beforeCustomMinus();
+          settings.beforeCustomMinus();
 
         $el.updateValue(-1);
 
         // Executa a função customMinus caso tenha sido configurada
         if(typeof settings.customMinus === 'function')
-          self.customMinus();
+          settings.customMinus();
 
       });
     });

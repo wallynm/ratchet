@@ -575,10 +575,8 @@
       if($el.data('value'))
         settings.value = $el.data('value');
 
-      if($el.data('name')){
-        alert($el.data('name'))
+      if($el.data('name'))
         settings.name = $el.data('name');
-      }
 
       if($el.data('min')) {
         settings.min = $el.data('min');

@@ -594,7 +594,7 @@
 
 
       // Renderiza o template no elemento selecionado.
-      var $tpl = $('<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" disabled="disabled" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>')
+      var $tpl = $('<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" readonly="readonly" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>')
       .addClass(getBaseClass(settings.type));
 
       // Aplica o template e atualiza seu value especifico

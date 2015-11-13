@@ -505,19 +505,6 @@
   }
 }());
 
-/* ================================================================================
- *       ▄▄▄▄▄▄▄        ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
- *     ▓▓▓▓▓▓▓█▓▓▓▄    ▓▓▓▓▓███████████████████████████████████  ████████████████▓▓
- *   ▓▓▓▓▓▓▌   ▓▓▓▓▓▄ ▓▓▓▓▌                                             ▓▓▓▓░
- *  ▓▓▓▓▓██▀  ▓▓▓▓▓▓█ ▓▓▓▓▄▄▄▄▄▄▄▄▄▄▄▄▄    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄          ▓▓▓▓░
- * '▓▓▓▓▓▄▄   ▓▓▓▓▓▓▓▌  ▀▀███████████▓▓▓▓▓▄  ██████████████████         ▓▓▓▓░
- * '▓▓▓▓▓▓▓   ▓▓▓▓▓▓▓                 ▓▓▓▓▓                             ▓▓▓▓░
- *  ╙▓▓▓▓▓▌   ▓▓▓▓▓▓▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▓▓▓▓▓█  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄         ▓▓▓▓░
- *    ╙█▓▓     ████████████████████████▀▀   ██████████████████          ▓▓▓▓░
- *
- * ========================================================================
- * @Author: Luiz Gustavo, Wallysson Nunes
- * ======================================================================== */
 
 (function($) {
   $.fn.counter = function(options) {
@@ -604,26 +591,26 @@
       $el.find('.ni-more').on('click', function() {
         // Executa a função beforeCustomPlus caso tenha sido configurada
         if(typeof settings.beforeCustomPlus === 'function')
-          settings.beforeCustomPlus();
+          settings.beforeCustomPlus.call(this);                   
 
         $el.updateValue(+1);
 
         // Executa a função customPlus caso tenha sido configurada
         if(typeof settings.customPlus === 'function')
-          settings.customPlus();
+          settings.customPlus.call(this);
       });
 
       /* Evento de click para decrementar o valor */
       $(this).find('.ni-less').on('click', function() {
         // Executa a função beforeCustomMinus caso tenha sido configurada
         if(typeof settings.beforeCustomMinus === 'function')
-          settings.beforeCustomMinus();
+          settings.beforeCustomMinus.call(this);
 
         $el.updateValue(-1);
 
         // Executa a função customMinus caso tenha sido configurada
         if(typeof settings.customMinus === 'function')
-          settings.customMinus();
+          settings.customMinus.call(this);          
 
       });
     });

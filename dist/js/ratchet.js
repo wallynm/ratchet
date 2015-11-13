@@ -565,6 +565,8 @@
           return;
         }
 
+        settings.value = updateVal;
+
         // Seta o valor no atributo
         this.find('.ni-value').val(updateVal);
       }

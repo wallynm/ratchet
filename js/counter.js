@@ -20,7 +20,7 @@
       min: 1,
       max: 10,
       value: 0,
-      valueInputName: 'counter-value',
+      name: 'counter-value',
       customPlus: undefined,
       beforeCustomPlus: undefined,
       customMinus: undefined,
@@ -32,7 +32,7 @@
     var settings = $.extend({}, defaults, options);
 
     // template do contador, com variação da classe que distingue os tipos de exibição.
-    var template = '<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.valueInputName + '" class="ni-value" disabled="disabled" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>';
+    var template = '<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" disabled="disabled" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>';
 
     var getBaseClass = function(type) {
       return(type === 'inline') ? 'ni-counter' : 'ni-counter2';
@@ -71,8 +71,8 @@
       if($el.data('value'))
         settings.value = $el.data('value');
 
-      if($el.data('value-name'))
-        settings.valueInputName = $el.data('value-name');
+      if($el.data('name'))
+        settings.name = $el.data('name');
 
       if($el.data('min')) {
         settings.min = $el.data('min');

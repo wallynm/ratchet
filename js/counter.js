@@ -31,9 +31,6 @@
 
     var settings = $.extend({}, defaults, options);
 
-    // template do contador, com variação da classe que distingue os tipos de exibição.
-    var template = '<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" disabled="disabled" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>';
-
     var getBaseClass = function(type) {
       return(type === 'inline') ? 'ni-counter' : 'ni-counter2';
     }
@@ -71,8 +68,10 @@
       if($el.data('value'))
         settings.value = $el.data('value');
 
-      if($el.data('name'))
+      if($el.data('name')){
+        alert($el.data('name'))
         settings.name = $el.data('name');
+      }
 
       if($el.data('min')) {
         settings.min = $el.data('min');
@@ -86,8 +85,10 @@
         settings.max = $el.data('max');
       }
 
+
       // Renderiza o template no elemento selecionado.
-      var $tpl = $(template).addClass(getBaseClass(settings.type));
+      var $tpl = $('<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" disabled="disabled" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>')
+      .addClass(getBaseClass(settings.type));
 
       // Aplica o template e atualiza seu value especifico
       $el.html($tpl).updateValue(settings.value);

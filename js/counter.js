@@ -6,11 +6,12 @@
       type: 'inline',
       min: 1,
       max: 10,
-      value: 0,
+      value: undefined,
       name: 'counter-value',
       customPlus: undefined,
       beforeCustomPlus: undefined,
       customMinus: undefined,
+      updateMin: undefined,
       beforeCustomMinus: undefined,
       maxLimitMsg: "O limite máximo foi atingido",
       minLimitMsg: "O limite minino foi atingido",
@@ -21,6 +22,14 @@
     var getBaseClass = function(type) {
       return(type === 'inline') ? 'ni-counter' : 'ni-counter2';
     }
+
+    this.updateMaxMin = function(val) {
+      $counter = $(this);
+      $counter.data('min', val.min);
+      $counter.data('max', val.max);
+
+      this.find('.ni-value').val(val.min);
+    };
 
     return this.each(function() {
       var self = this;
@@ -33,14 +42,16 @@
         var updateVal = currentVal + val;
 
         // Valida se o valor do contador esta acima do permitido
-        if(updateVal > settings.max) {
+        if(updateVal > $el.data('max')) {
           this.find('>div').tooltip({
-            title: settings.maxLimitMsg
+            title: settings.maxLimitMsg,
+            trigger: 'manual'
           }).tooltip('show');
           return;
-        } else if(updateVal <= settings.min) {
+        } else if(updateVal < $el.data('min')) {
           this.find('>div').tooltip({
-            title: settings.minLimitMsg
+            title: settings.minLimitMsg,
+            trigger: 'manual'
           }).tooltip('show');
           return;
         }
@@ -54,31 +65,28 @@
       if($el.data('type'))
         settings.type = $el.data('type');
 
-      if($el.data('value'))
-        settings.value = $el.data('value');
-
       if($el.data('name'))
         settings.name = $el.data('name');
 
-      if($el.data('min')) {
+      if($el.data('min'))
         settings.min = $el.data('min');
 
-        if(settings.value < settings.min) {
-          settings.value = settings.min;
-        }
+      if($el.data('value')) {
+        settings.value = $el.data('value');
+      } else {
+        settings.value = settings.min;
       }
 
       if($el.data('max')) {
         settings.max = $el.data('max');
       }
 
-
       // Renderiza o template no elemento selecionado.
-      var $tpl = $('<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" readonly="readonly" value="' + settings.min + '"/><div class="ni-less"><button type="button">-</button></div></div>')
+      var $tpl = $('<div><div class="ni-more"><button type="button">+</button></div><input name="' + settings.name + '" class="ni-value" readonly="readonly" value="' + settings.value + '"/><div class="ni-less"><button type="button">-</button></div></div>')
       .addClass(getBaseClass(settings.type));
 
       // Aplica o template e atualiza seu value especifico
-      $el.html($tpl).updateValue(settings.value);
+      $el.html($tpl);
 
       /* Evento de clique para incrementar o valor. */
       $el.find('.ni-more').on('click', function() {
@@ -103,8 +111,7 @@
 
         // Executa a função customMinus caso tenha sido configurada
         if(typeof settings.customMinus === 'function')
-          settings.customMinus.call(this);
-
+          settings.customMinus.call(this);          
       });
     });
   };

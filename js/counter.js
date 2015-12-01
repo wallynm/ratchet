@@ -13,8 +13,8 @@
       customMinus: undefined,
       updateMin: undefined,
       beforeCustomMinus: undefined,
-      maxLimitMsg: "O limite máximo foi atingido",
-      minLimitMsg: "O limite minino foi atingido",
+      maxLimitMsg: "limite máximo atingido",
+      minLimitMsg: "limite mínimo atingido",
     };
 
     var settings = $.extend({}, defaults, options);

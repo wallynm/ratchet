@@ -61,7 +61,8 @@ module.exports = function (grunt) {
           'js/sidebar.js',
           'js/toolbar.js',
           'js/counter.js',
-          'js/tooltip.js'
+          'js/tooltip.js',
+          'js/error-message.js'
         ],
         dest: '<%= meta.distPath %>js/<%= pkg.name %>.js'
       }

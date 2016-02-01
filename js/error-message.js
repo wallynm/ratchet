@@ -4,7 +4,8 @@
       console.warn(options);
       $(this).tooltip({
         title: options,
-        trigger: 'manual'
+        trigger: 'manual',
+        template: '<div class="tooltip tooltip-error" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
       }).tooltip('show');
     }
   };

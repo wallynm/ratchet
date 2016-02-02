@@ -1103,7 +1103,7 @@
 (function($){
   var methods = {
     init : function(options) {
-      console.warn(options);
+      $('.tooltip-error').tooltip('hide');
       $(this).tooltip({
         title: options,
         trigger: 'manual',

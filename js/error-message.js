@@ -1,7 +1,7 @@
 (function($){
   var methods = {
     init : function(options) {
-      $('.tooltip-error').tooltip('hide');
+      $('.tooltip-error').tooltip('destroy');
       $(this).tooltip({
         title: options,
         trigger: 'manual',

@@ -21,7 +21,7 @@
   if ($('.ni-product-buy').length !== 0){
     var $content = $('.content');
     var toolbarHeight = $('.ni-toolbar').height();
-    $('.ni-footer').css('padding-bottom', toolbarHeight);
+    $('.ni-footer').css('padding-bottom', toolbarHeight * 2);
 
     $content.scroll(function() {
       var scrolled = isScrolledIntoView('.ni-product-buy');

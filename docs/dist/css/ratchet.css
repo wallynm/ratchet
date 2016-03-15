@@ -238,11 +238,6 @@ th {
   }
 
 body {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-size: 17px;
   line-height: 21px;

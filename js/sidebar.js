@@ -11,8 +11,7 @@
  * ========================================================================
  * @Author: Wallysson Nunes
  * ======================================================================== */
-
- !(function () {
+!(function () {
    'use strict';
    var $overlay = $('.ni-overlay');
 
@@ -38,38 +37,27 @@
      }
    });
 
-   $overlay.on('touchstart', function() {
+   $overlay.on('click', function() {
      closeMenu();
    });
 
-   $('.ni-menu').on('tap', function(e) {
-     e.stopPropagation();
-     var indx = $(e.target).is('label') ? -2 : -1;
-     if( !$('.ni-menu-checkbox:checked + .ni-menu').eq(indx).is(this)){
-       $(this).find('.ni-menu-checkbox:checked').prop("checked", false).trigger("change");
-     }
-   });
-
    $('.ni-menu a').on('click', function(e) {
-     var clickedMenu = $(this).parents('.ni-menu');
-     var currentMenu = $('.ni-menu-checkbox:checked + .ni-menu:last');
+    var clickedMenu = $(this).parents('.ni-menu');
+    var currentMenu = $('.ni-menu-checkbox:checked + .ni-menu:last');
 
-     if(!clickedMenu.is(currentMenu)){
-       clickedMenu.trigger('touchstart');
-       return false;
-     }
-   });
+    if(!clickedMenu.is(currentMenu)){
+      clickedMenu.trigger('touchstart');
+      return false;
+    }
+  });
 
    $('.ni-menu-checkbox').change(function(e){
-     if(e.currentTarget.id === 'menu' && $('#ni-sidebar').hasClass('ni-active')){
-       closeMenu();
-     }
-
      $('.ni-menu').removeClass('ni-active');
      $('.ni-menu-checkbox:checked + .ni-menu ').last().addClass('ni-active');
 
      var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
      $overlay.toggleClass('ni-active', status);
      $('#ni-sidebar').toggleClass('ni-active', status);
+     $('body').toggleClass('no-scroll', status);
    });
  }());

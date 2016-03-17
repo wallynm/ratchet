@@ -1,3 +1,11 @@
+$.fn.emulateTransitionEnd = function (duration) {
+    var called = false, $el = this
+    $(this).one($.support.transition.end, function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+};
+
 /* ========================================================================
  * Bootstrap: tooltip.js v3.3.4
  * http://getbootstrap.com/javascript/#tooltip
@@ -6,8 +14,6 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
-
-
 +function ($) {
   'use strict';
 

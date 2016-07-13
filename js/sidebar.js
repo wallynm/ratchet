@@ -56,7 +56,6 @@
      $('.ni-menu-checkbox:checked + .ni-menu ').last().addClass('ni-active');
 
      var status = ($('.ni-menu-checkbox:checked').length === 0) ? false : true;
-     $overlay.toggleClass('ni-active', status);
      $('#ni-sidebar').toggleClass('ni-active', status);
      $('body').toggleClass('no-scroll', status);
    });
